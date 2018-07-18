@@ -1,0 +1,51 @@
+drop database if exists supermarket;
+create database supermarket;
+use supermarket;
+
+drop table if exists MerchInfo;
+create table MerchInfo(
+  MerchID varchar(10) primary key,
+  MerchName varchar(20) not null,
+  MerchPrice int(5) not null
+);
+
+drop table if exists User;
+create table User(
+  UserID varchar(10) primary key,
+  UserName varchar(10) not null,
+  superuser int(3) not null,
+  password varchar(10) not null
+);
+
+drop table if exists Buy;
+create table Buy(
+  MerchID varchar(10),
+  MerchName varchar(20) not null,
+  UserID varchar(10),
+  UserName varchar(10) not null,
+  MerchPrice int(5) not null,
+  foreign key (MerchID) references MerchInfo(MerchID) on delete
+  restrict on update restrict,
+  foreign key (UserID) references User(UserID) on
+  delete restrict on update restrict
+);
+
+insert into MerchInfo values('m01','BOOK1','22');
+insert into MerchInfo values('m02','BOOK2','42');
+insert into MerchInfo values('m03','BOOK3','30');
+insert into MerchInfo values('m04','BOOK4','28');
+insert into MerchInfo values('m05','BOOK5','53');
+insert into MerchInfo values('m06','BOOK6','60');
+insert into MerchInfo values('m07','BOOK7','51');
+insert into MerchInfo values('m08','BOOK8','38');
+
+insert into user values('u01','Tom','1','123321');
+insert into user values('u02','Mery','1','123321');
+insert into user values('u03','Koko','2','123321');
+insert into user values('aa','contral','3','aaaaaa');
+
+insert into Buy values('m01','BOOK1','u01','Tom','22');
+insert into Buy values('m04','BOOK4','u02','Mery','28');
+insert into Buy values('m01','BOOK1','u03','Koko','22');
+insert into Buy values('m06','BOOK6','u01','Tom','60');
+insert into Buy values('m08','BOOK8','u01','Tom','38');
